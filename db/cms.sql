@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2020 at 04:17 PM
+
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -47,6 +47,18 @@ INSERT INTO `admin` (`id`, `username`, `password`, `updationDate`) VALUES
 --
 -- Table structure for table `category`
 --
+CREATE TABLE `adminCategory` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(250) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `categoryName` varchar(250) NOT NULL,
+    `contactno` varchar(30) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `updationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE (`username`),
+  UNIQUE (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
