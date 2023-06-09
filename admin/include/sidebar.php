@@ -69,6 +69,7 @@ $num1 = mysqli_num_rows($rt);
                             </ul><!--/.widget-nav-->
 
 						<ul class="widget widget-menu unstyled">
+						<li><a href="admin-register.php"><i class="menu-icon icon-tasks"></i>Admin Registration </a></li>
 							<li><a href="user-logs.php"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
 							
 							<li>

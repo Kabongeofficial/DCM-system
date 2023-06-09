@@ -15,11 +15,11 @@ if(isset($_POST['submit']))
 {
 $fname=$_POST['fullname'];
 $contactno=$_POST['contactno'];
-$address=$_POST['address'];
-$state=$_POST['state'];
-$country=$_POST['country'];
-$pincode=$_POST['pincode'];
-$query=mysqli_query($bd, "update users set username='$fname',contactNo='$contactno',address='$address',State='$state',country='$country',pincode='$pincode' where userEmail='".$_SESSION['login']."'");
+// $address=$_POST['address'];
+// $state=$_POST['state'];
+// $country=$_POST['country'];
+// $pincode=$_POST['pincode'];
+$query=mysqli_query($bd, "update adminCategory set username='$fname',contactno='$contactno' where email='".$_SESSION['login']."'");
 if($query)
 {
 $successmsg="Profile Successfully !!";
@@ -40,7 +40,7 @@ $errormsg="Profile not updated !!";
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>CMS | User Change Password</title>
+    <title>DCMS | User Change Password</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -66,108 +66,58 @@ $errormsg="Profile not updated !!";
           	<div class="row mt">
           		<div class="col-lg-12">
                   <div class="form-panel">
-                  	
+                    <?php if($successmsg)
+                    {?>
+                    <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <b>Well done!</b> <?php echo htmlentities($successmsg);?></div>
+                    <?php }?>
 
-                      <?php if($successmsg)
-                      {?>
-                      <div class="alert alert-success alert-dismissable">
-                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      <b>Well done!</b> <?php echo htmlentities($successmsg);?></div>
-                      <?php }?>
-
-   <?php if($errormsg)
+                    <?php if($errormsg)
                       {?>
                       <div class="alert alert-danger alert-dismissable">
- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      <b>Oh snap!</b> </b> <?php echo htmlentities($errormsg);?></div>
-                      <?php }?>
- <?php $query=mysqli_query($bd, "select * from users where userEmail='".$_SESSION['login']."'");
- while($row=mysqli_fetch_array($query)) 
- {
- ?>                     
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <b>Oh snap!</b> </b> <?php echo htmlentities($errormsg);?>
+                        </div>
+                    <?php }?>
+                    <?php $query=mysqli_query($bd, "select * from adminCategory where email='".$_SESSION['login']."'");
+                        while($row=mysqli_fetch_array($query)) 
+                        {
+                            ?>                     
+                                <h4 class="mb"><i class="fa fa-user"></i>&nbsp;&nbsp;<?php echo htmlentities($row['username']);?>'s Profile</h4>
+                                <h5><b>Last Updated at :</b>&nbsp;&nbsp;<?php echo htmlentities($row['updationDate']);?></h5>
+                                <form class="form-horizontal style-form" method="post" name="profile" >
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-sm-2 control-label">Full Name</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="fullname" required="required" value="<?php echo htmlentities($row['username']);?>" class="form-control" >
+                                        </div>
+                                        <label class="col-sm-2 col-sm-2 control-label">User Email </label>
+                                        <div class="col-sm-4">
+                                            <input type="email" name="useremail" required="required" value="<?php echo htmlentities($row['email']);?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-sm-2 control-label">Contact</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="contactno" required="required" value="<?php echo htmlentities($row['contactno']);?>" class="form-control">
+                                        </div>
+                                    </div>
 
-  <h4 class="mb"><i class="fa fa-user"></i>&nbsp;&nbsp;<?php echo htmlentities($row['fullName']);?>'s Profile</h4>
-    <h5><b>Last Updated at :</b>&nbsp;&nbsp;<?php echo htmlentities($row['updationDate']);?></h5>
-                      <form class="form-horizontal style-form" method="post" name="profile" >
+                            <?php 
+                        } 
+                        ?>
 
-<div class="form-group">
-<label class="col-sm-2 col-sm-2 control-label">Full Name</label>
-<div class="col-sm-4">
-<input type="text" name="fullname" required="required" value="<?php echo htmlentities($row['fullName']);?>" class="form-control" >
- </div>
-<label class="col-sm-2 col-sm-2 control-label">User Email </label>
- <div class="col-sm-4">
-<input type="email" name="useremail" required="required" value="<?php echo htmlentities($row['userEmail']);?>" class="form-control" readonly>
-</div>
- </div>
-
-
-<div class="form-group">
-<label class="col-sm-2 col-sm-2 control-label">Contact</label>
- <div class="col-sm-4">
-<input type="text" name="contactno" required="required" value="<?php echo htmlentities($row['contactNo']);?>" class="form-control">
-</div>
-<label class="col-sm-2 col-sm-2 control-label">Address </label>
-<div class="col-sm-4">
-<textarea  name="address" required="required" class="form-control"><?php echo htmlentities($row['address']);?></textarea>
-</div>
-</div>
-
-<div class="form-group">
-<label class="col-sm-2 col-sm-2 control-label">State</label>
-<div class="col-sm-4">
-<select name="state" required="required" class="form-control">
-<option value="<?php echo htmlentities($row['State']);?>"><?php echo htmlentities($st=$row['State']);?></option>
-<?php $sql=mysqli_query($bd, "select stateName from state ");
-while ($rw=mysqli_fetch_array($sql)) {
-  if($rw['stateName']==$st)
-  {
-    continue;
-  }
-  else
-  {
-  ?>
-  <option value="<?php echo htmlentities($rw['stateName']);?>"><?php echo htmlentities($rw['stateName']);?></option>
-<?php
-}}
-?>
-
-</select>
-</div>
-<label class="col-sm-2 col-sm-2 control-label">Country </label>
-<div class="col-sm-4">
-<input type="text" name="country" required="required" value="<?php echo htmlentities($row['country']);?>" class="form-control">
-</div>
-</div>
-
-
-<div class="form-group">
-<label class="col-sm-2 col-sm-2 control-label">Pincode</label>
-<div class="col-sm-4">
-<input type="text" name="pincode" maxlength="6" required="required" value="<?php echo htmlentities($row['pincode']);?>" class="form-control">
-</div>
-<label class="col-sm-2 col-sm-2 control-label">Reg Date </label>
-<div class="col-sm-4">
-<input type="text" name="regdate" required="required" value="<?php echo htmlentities($row['regDate']);?>" class="form-control" readonly>
- </div>
-</div>
-
-
-<?php } ?>
-
-                          <div class="form-group">
+                        <div class="form-group">
                            <div class="col-sm-10" style="padding-left:25% ">
-<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-</div>
-</div>
+                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
 
                           </form>
                           </div>
                           </div>
                           </div>
-                          
-          	
-          	
 		</section>
       </section>
     <?php include("includes/footer.php");?>

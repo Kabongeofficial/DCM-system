@@ -31,19 +31,55 @@
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="register-complaint.php" >
-                          <i class="fa fa-book"></i>
-                          <span>Manage Complaints</span>
-                      </a>
+                        <a class="collapsed" data-toggle="collapse" href="#togglePages">
+                            <i class="menu-icon icon-cog"></i>
+                            <i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
+                            Manage Complaint
+                        </a>
+                        <ul id="togglePages" class="collapse unstyled">
+                            <li>
+                                <a href="notprocess-complaint.php">
+                                    <i class="icon-tasks"></i>
+                                    Not Process Yet Complaint
+                                    <?php
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints where status is null");
+                                        $num1 = mysqli_num_rows($rt);
+                                        {?>
+                                            <b class="label orange pull-right"><?php echo htmlentities($num1); ?></b>
+                                    <?php } ?>
+                                </a>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="inprocess-complaint.php">
+                                    <i class="icon-tasks"></i>
+                                    Pending Complaint
+                                    <?php $status="in Process";                   
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints where status='$status'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        {?><b class="label orange pull-right"><?php echo htmlentities($num1); ?></b>
+                                    <?php } ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="closed-complaint.php">
+                                    <i class="icon-inbox"></i>
+                                    Closed Complaints
+                                    <?php $status="closed";                   
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints where status='$status'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        {?><b class="label green pull-right"><?php echo htmlentities($num1); ?></b>
+                                    <?php } ?>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                  </li>
-                  <li class="sub-menu">
+                  <!-- <li class="sub-menu">
                       <a href="complaint-history.php" >
                           <i class="fa fa-tasks"></i>
                           <span>Complaint History</span>
                       </a>
                       
-                  </li>
+                  </li> -->
                  
               </ul>
               <!-- sidebar menu end-->
