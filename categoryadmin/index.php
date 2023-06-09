@@ -81,6 +81,7 @@ if(isset($_POST['change'])) {
 </head>
 
 <body>
+	  <div id="login-background"></div>
     <div id="login-page">
         <div class="container">
             <form class="form-login" name="login" method="post">
@@ -136,11 +137,25 @@ if(isset($_POST['change'])) {
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
 
-    <!--BACKSTRETCH-->
-    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-    <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
     <script>
-        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
-    </script>
+    var backgroundImageUrl = 'assets/img/nkurummah.jpg';
+    var backgroundStyle = "url('" + backgroundImageUrl + "')";
+
+    var loginBackground = document.getElementById('login-background');
+    loginBackground.style.backgroundImage = backgroundStyle;
+    loginBackground.style.backgroundSize = 'cover';
+    loginBackground.style.backgroundPosition = 'center';
+    // Add any additional styling properties here
+</script>
+
+<style>
+    #login-background {
+        /* Add any additional styling properties */
+        width: 100vw;
+        height: 100vh;
+		position: absolute;
+		z-index: -2;
+    }
+</style>
 </body>
 </html>
