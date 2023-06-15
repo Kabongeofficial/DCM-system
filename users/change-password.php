@@ -36,7 +36,7 @@ $errormsg="Old Password not match !!";
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>CMS | User Change Password</title>
+    <title>CMS | Student Change Password</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -91,7 +91,7 @@ return true;
           	<div class="row mt">
           		<div class="col-lg-12">
                   <div class="form-panel">
-                  	  <h4 class="mb"><i class="fa fa-angle-right"></i> User Change Password</h4>
+                  	  <h4 class="mb"><i class="fa fa-angle-right"></i> Student Change Password</h4>
 
                       <?php if($successmsg)
                       {?>

@@ -40,7 +40,7 @@ $errormsg="Profile not updated !!";
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DCMS | User Change Password</title>
+    <title>DCMS | Student Change Password</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -92,7 +92,7 @@ $errormsg="Profile not updated !!";
                                         <div class="col-sm-4">
                                             <input type="text" name="fullname" required="required" value="<?php echo htmlentities($row['username']);?>" class="form-control" >
                                         </div>
-                                        <label class="col-sm-2 col-sm-2 control-label">User Email </label>
+                                        <label class="col-sm-2 col-sm-2 control-label">Student Email </label>
                                         <div class="col-sm-4">
                                             <input type="email" name="useremail" required="required" value="<?php echo htmlentities($row['email']);?>" class="form-control" readonly>
                                         </div>

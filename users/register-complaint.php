@@ -46,7 +46,7 @@ exit();
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>CMS | User Register Complaint</title>
+    <title>CMS | Student Register Complaint</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -106,10 +106,10 @@ function getCat(val) {
                       <form class="form-horizontal style-form" method="post" name="complaint" enctype="multipart/form-data" >
 
 <div class="form-group">
-<label class="col-sm-2 col-sm-2 control-label">Category</label>
+<label class="col-sm-2 col-sm-2 control-label">Ministry</label>
 <div class="col-sm-4">
 <select name="category" id="category" class="form-control" onChange="getCat(this.value);" required="">
-<option value="">Select Category</option>
+<option value="">Select Ministry</option>
 <?php $sql=mysqli_query($bd, "select id,categoryName from category ");
 while ($rw=mysqli_fetch_array($sql)) {
   ?>

@@ -62,7 +62,7 @@ $errormsg="Invalid email id or Contact no";
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DCMS | User Login</title>
+    <title>DCMS | Student Login</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">

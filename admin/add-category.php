@@ -23,7 +23,7 @@ else
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Admin | Add Category</title>
+		<title>Minister | Add Ministry</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -65,16 +65,16 @@ else
 								<li>
 									<i class="clip-pencil"></i>
 									<a href="#">
-										Admin
+										Minister
 									</a>
 								</li>
 								<li class="active">
-									Add Category 
+									Add Ministry 
 								</li>
 							
 							</ol>
 							<div class="page-header">
-								<h1>Add Category</h1>
+								<h1>Add Ministry</h1>
 							</div>
 						</div>
 					</div>
@@ -83,7 +83,7 @@ else
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<i class="fa fa-external-link-square"></i>
-									Add Category 
+									Add Ministry 
 									<div class="panel-tools">
 										<a class="btn btn-xs btn-link panel-collapse collapses" href="#">
 										</a>
@@ -96,7 +96,7 @@ else
 									<form role="form" class="form-horizontal" method="post" action="">
 										<div class="form-group">
 											<label class="col-sm-2 control-label" for="form-field-1">
-											 Category Code
+											 Ministry Code
 											</label>
 											<div class="col-sm-9">
 									<input type="text" placeholder="Category Code" name="catcode" id="form-field-1" class="form-control" required>
@@ -104,7 +104,7 @@ else
 										</div>
 								<div class="form-group">
 											<label class="col-sm-2 control-label"  for="form-field-1">
-											 Category Name
+											 Ministry Name
 											</label>
 											<div class="col-sm-9">
 									<input type="text" placeholder="Category Name" name="catname" id="form-field-1" class="form-control" required>
@@ -113,7 +113,7 @@ else
 
 	<div class="form-group">
 											<label class="col-sm-2 control-label" for="form-field-1">
-											Category Description
+											Ministry Description
 											</label>
 											<div class="col-sm-9">
 									<textarea name="description" class="form-control"></textarea> 

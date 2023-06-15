@@ -31,7 +31,7 @@ if(isset($_POST['submit']))
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DCMS | User Registration</title>
+    <title>DCMS | Student Registration</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet">
@@ -59,7 +59,7 @@ error:function (){}
 	  	<div class="container">
 	  	
 		      <form class="form-login" method="post">
-		        <h2 class="form-login-heading">User Registration</h2>
+		        <h2 class="form-login-heading">Students Registration</h2>
 		        <p style="padding-left: 1%; color: green">
 		        	<?php if($msg){
 echo htmlentities($msg);

@@ -85,7 +85,7 @@ while($row=mysqli_fetch_array($query))
 										</tr>
 
 <tr>
-											<td><b>Category </b></td>
+											<td><b>Ministry </b></td>
 											<td><?php echo htmlentities($row['catname']);?></td>
 											<td><b>SubCategory</b></td>
 											<td> <?php echo htmlentities($row['subcategory']);?></td>

@@ -44,7 +44,7 @@ else {
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Registration</title>
+    <title>Minister | Registration</title>
     <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -62,7 +62,7 @@ else {
                     <div class="content">
                         <div class="module">
                             <div class="module-head">
-                                <h3>Add Admin according to category</h3>
+                                <h3>Add Minister according to Ministry</h3>
                             </div>
                             <div class="module-body">
                                 <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
@@ -75,9 +75,9 @@ else {
                                     <label for="email">Email:</label>
                                     <input type="email" id="email" name="email" required><br>
 
-                                    <label for="category">Category:</label>
+                                    <label for="category">Ministry:</label>
                                     <select name="category" id="category" class="form-control" onChange="getCat(this.value);" required="">
-                                        <option value="">Select Category</option>
+                                        <option value="">Select Ministry</option>
                                         <?php 
                                             $sql = mysqli_query($bd, "SELECT id, categoryName FROM category");
                                             while($rw = mysqli_fetch_array($sql)) {
