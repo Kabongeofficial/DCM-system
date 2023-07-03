@@ -22,7 +22,7 @@ window.print();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Student Profile</title>
+<title>User Profile</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
 <link href="anuj.css" rel="stylesheet" type="text/css">
 </head>
@@ -42,7 +42,7 @@ while($row=mysqli_fetch_array($ret1))
   
 		
     <tr>
-      <td colspan="2"><b><?php echo $row['fullName'];?>Student's profile</b></td>
+      <td colspan="2"><b><?php echo $row['fullName'];?>'s profile</b></td>
       
     </tr>
     
@@ -56,13 +56,13 @@ while($row=mysqli_fetch_array($ret1))
       <td><?php echo htmlentities($row['regDate']); ?></td>
     </tr>
     <tr height="50">
-      <td><b>Student Email:</b></td>
+      <td><b>User Email:</b></td>
       <td><?php echo htmlentities($row['userEmail']); ?></td>
     </tr>
 
 
       <tr height="50">
-      <td><b>Student Contact no:</b></td>
+      <td><b>User Contact no:</b></td>
       <td><?php echo htmlentities($row['contactNo']); ?></td>
     </tr>
     

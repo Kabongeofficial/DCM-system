@@ -52,24 +52,51 @@ $num1 = mysqli_num_rows($rt);
 							</li>
 							
 							<li>
-								<a href="manage-users.php">
-									<i class="menu-icon icon-group"></i>
-									Manage users
+								<a class="collapsed" data-toggle="collapse" href="#toggleUserTypes">
+									<i class="menu-icon icon-cogs"></i>
+									<i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
+									Manage User Types
 								</a>
+								<ul id="toggleUserTypes" class="collapse unstyled">
+									<li>
+										<a href="manage-users.php">
+											<i class="icon-user"></i>
+											Normal Users
+										</a>
+									</li>
+									<li>
+										<a href="manage-ministers.php">
+											<i class="icon-user"></i>
+											Ministers
+										</a>
+									</li>
+									<li>
+										<a href="manage-judges.php">
+											<i class="icon-user"></i>
+											Judges
+										</a>
+									</li>
+									<li>
+										<a href="manage-president.php">
+											<i class="icon-user"></i>
+											President
+										</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 
 
 						<ul class="widget widget-menu unstyled">
                                 <li><a href="category.php"><i class="menu-icon icon-tasks"></i> Add Ministry </a></li>
-                                <li><a href="subcategory.php"><i class="menu-icon icon-tasks"></i>Add Sub-Category </a></li>
-                                <li><a href="state.php"><i class="menu-icon icon-paste"></i>Add State</a></li>
+                                <li><a href="subcategory.php"><i class="menu-icon icon-tasks"></i>Add Category </a></li>
+                                <!-- <li><a href="state.php"><i class="menu-icon icon-paste"></i>Add State</a></li> -->
                           
                         
                             </ul><!--/.widget-nav-->
 
 						<ul class="widget widget-menu unstyled">
-						<li><a href="admin-register.php"><i class="menu-icon icon-tasks"></i>Minister Registration </a></li>
+						<li><a href="admin-register.php"><i class="menu-icon icon-tasks"></i>Admins  Registration </a></li>
 							<li><a href="user-logs.php"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
 							
 							<li>

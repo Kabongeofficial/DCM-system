@@ -9,7 +9,17 @@ header('location:index.php');
 else{
 date_default_timezone_set('Asia/Kolkata');
 $currentTime = date( 'd-m-Y h:i:s A', time () );
-
+    $adminType = $_SESSION['userType'];
+    $querys = null;
+    if ($adminType == 'minister') {
+       $querys=mysqli_query($bd, "SELECT * FROM minister where email='".$_SESSION['login']."'");
+    }
+    if ($adminType == 'judge') {
+      $querys=mysqli_query($bd, "SELECT * FROM judge where email='".$_SESSION['login']."'");
+    }
+    if ($adminType == 'president') {
+      $querys=mysqli_query($bd, "SELECT * FROM president where email='".$_SESSION['login']."'");
+    }
 
 if(isset($_POST['submit']))
 {
@@ -19,7 +29,17 @@ $contactno=$_POST['contactno'];
 // $state=$_POST['state'];
 // $country=$_POST['country'];
 // $pincode=$_POST['pincode'];
-$query=mysqli_query($bd, "update adminCategory set username='$fname',contactno='$contactno' where email='".$_SESSION['login']."'");
+$query = null;
+if($adminType == 'minister'){
+  $query=mysqli_query($bd, "update minister set username='$fname',contactno='$contactno' where email='".$_SESSION['login']."'");
+}
+if($adminType == 'judge'){
+  $query=mysqli_query($bd, "update judge set username='$fname',contactno='$contactno' where email='".$_SESSION['login']."'");
+}
+if($adminType == 'president'){
+  $query=mysqli_query($bd, "update president set username='$fname',contactno='$contactno' where email='".$_SESSION['login']."'");
+}
+
 if($query)
 {
 $successmsg="Profile Successfully !!";
@@ -80,8 +100,8 @@ $errormsg="Profile not updated !!";
                             <b>Oh snap!</b> </b> <?php echo htmlentities($errormsg);?>
                         </div>
                     <?php }?>
-                    <?php $query=mysqli_query($bd, "select * from adminCategory where email='".$_SESSION['login']."'");
-                        while($row=mysqli_fetch_array($query)) 
+                    <?php 
+                        while($row=mysqli_fetch_array($querys)) 
                         {
                             ?>                     
                                 <h4 class="mb"><i class="fa fa-user"></i>&nbsp;&nbsp;<?php echo htmlentities($row['username']);?>'s Profile</h4>

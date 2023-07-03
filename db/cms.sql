@@ -40,19 +40,20 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `updationDate`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '08-05-2020 07:23:45 PM');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '08-05-2023 07:23:45 PM');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Table structure for table `minister`
 --
-CREATE TABLE `adminCategory` (
+CREATE TABLE `minister` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(250) NOT NULL,
   `email` varchar(60) NOT NULL,
-  `categoryName` varchar(250) NOT NULL,
-    `contactno` varchar(30) NOT NULL,
+  `position` varchar(250) NOT NULL,
+  `ministryName` varchar(250) NOT NULL,
+  `contactno` varchar(30) NOT NULL,
   `password` varchar(250) NOT NULL,
   `updationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -60,12 +61,40 @@ CREATE TABLE `adminCategory` (
   UNIQUE (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `category` (
+CREATE TABLE `judge` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(250) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `position` varchar(250) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  `contactno` varchar(30) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `updationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE (`username`),
+  UNIQUE (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `president` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `username` varchar(250) NOT NULL,
+ `email` varchar(60) NOT NULL,
+ `position` varchar(250) NOT NULL,
+ `contactno` varchar(30) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `updationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE (`username`),
+  UNIQUE (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `ministry` (
   `id` int(11) NOT NULL,
-  `categoryName` varchar(255) NOT NULL,
-  `categoryDescription` longtext NOT NULL,
+  `ministryName` varchar(255) NOT NULL,
+  `ministrDescription` longtext NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updationDate` varchar(255) NOT NULL
+  `updationDate`TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -88,23 +117,23 @@ CREATE TABLE `complaintremark` (
 -- Table structure for table `state`
 --
 
-CREATE TABLE `state` (
-  `id` int(11) NOT NULL,
-  `stateName` varchar(255) NOT NULL,
-  `stateDescription` tinytext NOT NULL,
-  `postingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updationDate` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- CREATE TABLE `state` (
+--   `id` int(11) NOT NULL,
+--   `stateName` varchar(255) NOT NULL,
+--   `stateDescription` tinytext NOT NULL,
+--   `postingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--   `updationDate` varchar(255) NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subcategory`
+-- Table structure for table `category`
 --
 
-CREATE TABLE `subcategory` (
+CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `categoryid` int(11) NOT NULL,
+  `ministryid` int(11) NOT NULL,
   `subcategory` varchar(255) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updationDate` varchar(255) NOT NULL
@@ -119,11 +148,12 @@ CREATE TABLE `subcategory` (
 CREATE TABLE `tblcomplaints` (
   `complaintNumber` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `category` int(11) NOT NULL,
-  `subcategory` varchar(255) NOT NULL,
+  `ministry` int(11) NOT NULL,
+  `category` varchar(255) NOT NULL,
   `complaintType` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL,
-  `noc` varchar(255) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  -- `state` varchar(255) NOT NULL,
+  -- `noc` varchar(255) NOT NULL,
   `complaintDetails` mediumtext NOT NULL,
   `complaintFile` varchar(255) DEFAULT NULL,
   `regDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -152,9 +182,9 @@ CREATE TABLE `userlog` (
 --
 
 INSERT INTO `userlog` (`id`, `uid`, `username`, `userip`, `loginTime`, `logout`, `status`) VALUES
-(1, 0, 'john@gmail.com', 0x3a3a3100000000000000000000000000, '2020-05-08 14:14:43', '', 0),
-(2, 1, 'john@gmail.com', 0x3a3a3100000000000000000000000000, '2020-05-08 14:14:50', '08-05-2020 07:44:51 PM', 1),
-(3, 1, 'john@gmail.com', 0x3a3a3100000000000000000000000000, '2020-05-08 14:16:30', '', 1);
+(1, 0, 'john@gmail.com', 0x3a3a3100000000000000000000000000, '2023-05-08 14:14:43', '', 0),
+(2, 1, 'john@gmail.com', 0x3a3a3100000000000000000000000000, '2023-05-08 14:14:50', '08-05-2020 07:44:51 PM', 1),
+(3, 1, 'john@gmail.com', 0x3a3a3100000000000000000000000000, '2023-05-08 14:16:30', '', 1);
 
 -- --------------------------------------------------------
 
@@ -164,9 +194,10 @@ INSERT INTO `userlog` (`id`, `uid`, `username`, `userip`, `loginTime`, `logout`,
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `fullName` varchar(255) DEFAULT NULL,
-  `userEmail` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `fullName` varchar(255) NOT NULL,
+  `userEmail` varchar(255) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `contactNo` bigint(11) DEFAULT NULL,
   `address` tinytext,
   `State` varchar(255) DEFAULT NULL,
@@ -183,7 +214,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullName`, `userEmail`, `password`, `contactNo`, `address`, `State`, `country`, `pincode`, `userImage`, `regDate`, `updationDate`, `status`) VALUES
-(1, 'John Smith', 'john@gmail.com', '202cb962ac59075b964b07152d234b70', 9999999999, NULL, NULL, NULL, NULL, NULL, '2020-05-08 14:10:50', '2020-05-08 14:16:22', 1);
+(1, 'John Smith', 'john@gmail.com', '202cb962ac59075b964b07152d234b70', 9999999999, NULL, NULL, NULL, NULL, NULL, '2023-05-08 14:10:50', '2023-05-08 14:16:22', 1);
 
 --
 -- Indexes for dumped tables
@@ -196,9 +227,9 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `category`
+-- Indexes for table `ministry`
 --
-ALTER TABLE `category`
+ALTER TABLE `ministry`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -210,13 +241,13 @@ ALTER TABLE `complaintremark`
 --
 -- Indexes for table `state`
 --
-ALTER TABLE `state`
-  ADD PRIMARY KEY (`id`);
+-- ALTER TABLE `state`
+--   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `subcategory`
+-- Indexes for table `category`
 --
-ALTER TABLE `subcategory`
+ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -248,9 +279,9 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT for table `ministry`
 --
-ALTER TABLE `category`
+ALTER TABLE `ministry`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -262,13 +293,13 @@ ALTER TABLE `complaintremark`
 --
 -- AUTO_INCREMENT for table `state`
 --
-ALTER TABLE `state`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+-- ALTER TABLE `state`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `subcategory`
+-- AUTO_INCREMENT for table `category`
 --
-ALTER TABLE `subcategory`
+ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

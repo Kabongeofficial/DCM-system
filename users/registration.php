@@ -5,10 +5,11 @@ if(isset($_POST['submit']))
 {
 	$fullname=$_POST['fullname'];
 	$email=$_POST['email'];
+	$unit= $_POST['unit'];
 	$password=md5($_POST['password']);
 	$contactno=$_POST['contactno'];
 	$status=1;
-	$query=mysqli_query($bd, "insert into users(fullName,userEmail,password,contactNo,status) values('$fullname','$email','$password','$contactno','$status')");
+	$query=mysqli_query($bd, "insert into users(fullName,userEmail,password,unit,contactNo,status) values('$fullname','$email','$password','$unit','$contactno','$status')");
 	if($query)
 	{
 		$msg="Registration successful. Now you can login!";
@@ -73,6 +74,27 @@ echo htmlentities($msg);
 		            <input type="email" class="form-control" placeholder="Email" id="email" onBlur="userAvailability()" name="email" required="required">
 		             <span id="user-availability-status1" style="font-size:12px;"></span>
 		            <br>
+					<select name="unit" class="form-control">
+						<option value="" selected>Select Unit</option>
+						<option value="CoHU">College of Humanities</option>
+						<option value="CoICT">College of Information and Communication Technologies</option>
+						<option value="CoNAS">College of Natural and Applied Sciences</option>
+						<option value="SoED">School of Education</option>
+						<option value="IDS">Institute of Development Studies</option>
+						<option value="CoAF">College of Agriculture and Forestry</option>
+						<option value="CoSS">College of Social Sciences</option>
+						<option value="SoMG">School of Medicine and Dentistry</option>
+						<option value="UDSE">University Department of Special Education</option>
+						<option value="UDBS">University Department of Business Studies</option>
+						<option value="UDSoL">University Department of Sociology and Law</option>
+						<option value="SoAF">School of Architecture and Design</option>
+						<option value="IKS">Institute of Kiswahili Studies</option>
+						<option value="CoET">College of Engineering and Technology</option>
+						<option value="SJMC">School of Journalism and Mass Communication</option>
+						<option value="IMR">Institute of Marine Sciences</option>
+						<option value="MCHAS">Muhimbili College of Health and Allied Sciences</option>
+					</select><br>
+
 		            <input type="password" class="form-control" placeholder="Password" required="required" name="password"><br >
 		             <input type="text" class="form-control" maxlength="10" name="contactno" placeholder="Contact no" required="required" autofocus>
 		            <br>

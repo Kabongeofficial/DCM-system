@@ -11,18 +11,23 @@ else{
 if(isset($_POST['submit']))
 {
 $uid=$_SESSION['id'];
-$category=$_POST['category'];
-$subcat=$_POST['subcategory'];
+    // Fetch user details including the unit
+    $userDetails = mysqli_query($bd, "SELECT * FROM users WHERE id = '$uid'");
+
+        $rowUser = mysqli_fetch_assoc($userDetails);
+        $unit = $rowUser['unit'];
+$ministry=$_POST['ministry'];
+$subcat=$_POST['category'];
 $complaintype=$_POST['complaintype'];
-$state=$_POST['state'];
-$noc=$_POST['noc'];
+// $state=$_POST['state'];
+// $noc=$_POST['noc'];
 $complaintdetials=$_POST['complaindetails'];
 $compfile=$_FILES["compfile"]["name"];
 
 
 
 move_uploaded_file($_FILES["compfile"]["tmp_name"],"complaintdocs/".$_FILES["compfile"]["name"]);
-$query=mysqli_query($bd, "insert into tblcomplaints(userId,category,subcategory,complaintType,state,noc,complaintDetails,complaintFile) values('$uid','$category','$subcat','$complaintype','$state','$noc','$complaintdetials','$compfile')");
+$query=mysqli_query($bd, "insert into tblcomplaints(userId,ministry,category,complaintType,complaintDetails,complaintFile, unit) values('$uid','$ministry','$subcat','$complaintype','$complaintdetials','$compfile', '$unit')");
 
 $sql=mysqli_query($bd, "select complaintNumber from tblcomplaints  order by complaintNumber desc limit 1");
 while($row=mysqli_fetch_array($sql))
@@ -65,7 +70,8 @@ function getCat(val) {
   url: "getsubcat.php",
   data:'catid='+val,
   success: function(data){
-    $("#subcategory").html(data);
+    console.log(val); // Add this line to log the value
+    $("#category").html(data);
     
   }
   });
@@ -108,12 +114,12 @@ function getCat(val) {
 <div class="form-group">
 <label class="col-sm-2 col-sm-2 control-label">Ministry</label>
 <div class="col-sm-4">
-<select name="category" id="category" class="form-control" onChange="getCat(this.value);" required="">
+<select name="ministry" id="ministry" class="form-control" onChange="getCat(this.value);" required="">
 <option value="">Select Ministry</option>
-<?php $sql=mysqli_query($bd, "select id,categoryName from category ");
+<?php $sql=mysqli_query($bd, "select id, ministryName from ministry ");
 while ($rw=mysqli_fetch_array($sql)) {
   ?>
-  <option value="<?php echo htmlentities($rw['id']);?>"><?php echo htmlentities($rw['categoryName']);?></option>
+  <option value="<?php echo htmlentities($rw['id']);?>"><?php echo htmlentities($rw['ministryName']);?></option>
 <?php
 }
 ?>
@@ -121,8 +127,8 @@ while ($rw=mysqli_fetch_array($sql)) {
  </div>
 <label class="col-sm-2 col-sm-2 control-label">Sub Category </label>
  <div class="col-sm-4">
-<select name="subcategory" id="subcategory" class="form-control" >
-<option value="">Select Subcategory</option>
+<select name="category" id="category" class="form-control" >
+<option value="">Select category</option>
 </select>
 </div>
  </div>
@@ -139,9 +145,9 @@ while ($rw=mysqli_fetch_array($sql)) {
                 </select> 
 </div>
 
-<label class="col-sm-2 col-sm-2 control-label">State</label>
+<!-- <label class="col-sm-2 col-sm-2 control-label">State</label> -->
 <div class="col-sm-4">
-<select name="state" required="required" class="form-control">
+<!-- <select name="state" required="required" class="form-control">
 <option value="">Select State</option>
 <?php $sql=mysqli_query($bd, "select stateName from state ");
 while ($rw=mysqli_fetch_array($sql)) {
@@ -151,7 +157,7 @@ while ($rw=mysqli_fetch_array($sql)) {
 }
 ?>
 
-</select>
+</select> -->
 </div>
 </div>
 

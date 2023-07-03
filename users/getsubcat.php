@@ -8,8 +8,8 @@ if(!empty($_POST["catid"]))
  	echo htmlentities("invalid industryid");exit;
  }
  else{
- $stmt = mysqli_query($bd, "SELECT subcategory FROM subcategory WHERE categoryid ='$id'");
- ?><option selected="selected">Select Subcategory </option><?php
+ $stmt = mysqli_query($bd, "SELECT subcategory FROM category WHERE ministryid ='$id'");
+ ?><option selected="selected">Select Category </option><?php
  while($row=mysqli_fetch_array($stmt))
  {
   ?>

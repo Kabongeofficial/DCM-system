@@ -8,13 +8,31 @@ if (strlen($_SESSION['login']) == 0) {
     $currentTime = date('d-m-Y h:i:s A', time());
     // Retrieve the admin's category
     $adminId = $_SESSION['id'];
-    $queryAdmin = "SELECT categoryName FROM admincategory WHERE id = '$adminId'";
-    $resultAdmin = mysqli_query($bd, $queryAdmin);
-    $rowAdmin = mysqli_fetch_assoc($resultAdmin);
-    $adminCategory = $rowAdmin['categoryName'];
+    $adminType = $_SESSION['userType'];
+    $resultYears = null;
+    $adminCategory = null;
+    if($adminType == 'minister'){
+        $queryAdmin = "SELECT ministryName FROM minister WHERE id = '$adminId'";
+        $resultAdmin = mysqli_query($bd, $queryAdmin);
+        $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+        $adminCategory = $rowAdmin['ministryName'];
 
-    // Fetch distinct years from the tblcomplaints table
-    $queryYears = "SELECT DISTINCT YEAR(regDate) AS year FROM tblcomplaints WHERE category = '$adminCategory'";
+        // Fetch distinct years from the tblcomplaints table
+        $queryYears = "SELECT DISTINCT YEAR(regDate) AS year FROM tblcomplaints WHERE ministry = '$adminCategory'";
+    }
+    if($adminType == 'judge'){
+        $queryAdmin = "SELECT unit FROM judge WHERE id = '$adminId'";
+        $resultAdmin = mysqli_query($bd, $queryAdmin);
+        $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+        $adminCategory = $rowAdmin['unit'];
+
+        // Fetch distinct years from the tblcomplaints table
+        $queryYears = "SELECT DISTINCT YEAR(regDate) AS year FROM tblcomplaints WHERE unit = '$adminCategory'";
+    }
+    if($adminType == 'president'){
+        $queryYears = "SELECT DISTINCT YEAR(regDate) AS year FROM tblcomplaints";
+    }
+    
     $resultYears = mysqli_query($bd, $queryYears);
     $years = array();
     while ($row = mysqli_fetch_assoc($resultYears)) {
@@ -26,8 +44,18 @@ if (strlen($_SESSION['login']) == 0) {
     
     $status = isset($_GET['status']) ? $_GET['status'] : 'all';
     $statusCondition = ($status == 'all') ? '' : "AND status = '$status'";
+    $queryYear= null;
+    if ($adminType == 'minister') {
+        $queryYear = "SELECT MONTH(regDate) AS month, COUNT(*) AS count FROM tblcomplaints WHERE YEAR(regDate) = '$selectedYear' AND ministry = '$adminCategory' $statusCondition GROUP BY MONTH(regDate)";
+    }
+    if ($adminType == 'judge') {
+        $queryYear = "SELECT MONTH(regDate) AS month, COUNT(*) AS count FROM tblcomplaints WHERE YEAR(regDate) = '$selectedYear' AND unit = '$adminCategory' $statusCondition GROUP BY MONTH(regDate)";
+    }
+    if ($adminType == 'president') {
+        $queryYear = "SELECT MONTH(regDate) AS month, COUNT(*) AS count FROM tblcomplaints WHERE YEAR(regDate) = '$selectedYear' $statusCondition GROUP BY MONTH(regDate)";
+    }
     
-    $queryYear = "SELECT MONTH(regDate) AS month, COUNT(*) AS count FROM tblcomplaints WHERE YEAR(regDate) = '$selectedYear' AND category = '$adminCategory' $statusCondition GROUP BY MONTH(regDate)";
+   
     $resultYear = mysqli_query($bd, $queryYear);
     
     $yearData = array(

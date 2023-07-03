@@ -6,6 +6,7 @@ include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
+    $adminType = $_SESSION['userType'];
 ?>
 
 <!DOCTYPE html>
@@ -68,65 +69,164 @@ if (strlen($_SESSION['login']) == 0) {
                             <div class="box1">
                                 <span class="li_news"></span>
                                 <?php
-                                $adminId = $_SESSION['id'];
-                                $queryAdmin = "SELECT categoryName FROM admincategory WHERE id = '$adminId'";
-                                $resultAdmin = mysqli_query($bd, $queryAdmin);
-                                $rowAdmin = mysqli_fetch_assoc($resultAdmin);
-                                $adminCategory = $rowAdmin['categoryName'];
+                                if ($adminType == 'minister') {
+                                    $adminId = $_SESSION['id'];
+                                    $queryAdmin = "SELECT ministryName FROM minister WHERE id = '$adminId'";
+                                    $resultAdmin = mysqli_query($bd, $queryAdmin);
+                                    $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+                                    $adminCategory = $rowAdmin['ministryName'];
 
-                                $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status IS NULL AND category = '$adminCategory'");
-                                $num1 = mysqli_num_rows($rt);
-                                {
+                                    $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status IS NULL AND ministry = '$adminCategory'");
+                                    $num1 = mysqli_num_rows($rt);
+                                    // Remove the extra curly brace here {
                                 ?>
                                     <h3><?php echo htmlentities($num1); ?></h3>
-                            </div>
-                            <p><?php echo htmlentities($num1); ?> Complaints not Processed yet</p>
-                        </div>
-                        <?php } ?>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints not Processed yet</p>
+                                </div>
+                                <?php } ?>
+
+                                <?php
+                                if ($adminType == 'judge') {
+                                    $adminId = $_SESSION['id'];
+                                    $queryAdmin = "SELECT unit FROM judge WHERE id = '$adminId'";
+                                    $resultAdmin = mysqli_query($bd, $queryAdmin);
+                                    $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+                                    $adminUnit = $rowAdmin['unit'];
+
+                                    $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status IS NULL AND unit = '$adminUnit'");
+                                    $num1 = mysqli_num_rows($rt);
+                                    // Remove the extra curly brace here {
+                                ?>
+                                    <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints not Processed yet</p>
+                                </div>
+                                <?php } ?>
+
+                                <?php
+                                if ($adminType == 'president') {
+
+                                    $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status IS NULL");
+                                    $num1 = mysqli_num_rows($rt);
+                                    // Remove the extra curly brace here {
+                                ?>
+                                    <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints not Processed yet</p>
+                                </div>
+                                <?php } ?>
 
 
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="li_news"></span>
                                 <?php
-                                $adminId = $_SESSION['id'];
-                                $queryAdmin = "SELECT categoryName FROM admincategory WHERE id = '$adminId'";
-                                $resultAdmin = mysqli_query($bd, $queryAdmin);
-                                $rowAdmin = mysqli_fetch_assoc($resultAdmin);
-                                $adminCategory = $rowAdmin['categoryName'];
+                                if ($adminType == 'minister') {
+                                    $adminId = $_SESSION['id'];
+                                    $queryAdmin = "SELECT ministryName FROM minister WHERE id = '$adminId'";
+                                    $resultAdmin = mysqli_query($bd, $queryAdmin);
+                                    $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+                                    $adminCategory = $rowAdmin['ministryName'];
 
-                                $status = "in process";
-                                $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status' AND category = '$adminCategory'");
-                                $num1 = mysqli_num_rows($rt);
-                                {
-                                ?>
-                                    <h3><?php echo htmlentities($num1); ?></h3>
-                            </div>
-                            <p><?php echo htmlentities($num1); ?> Complaints Status in process</p>
-                        </div>
-                        <?php } ?>
+                                    $status = "in process";
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status' AND ministry = '$adminCategory'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        
+                                        ?>
+                                            <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints Status in process</p>
+                                </div>
+                                <?php } ?>
+
+                                <?php
+                                if ($adminType == 'judge') {
+                                    $adminId = $_SESSION['id'];
+                                    $queryAdmin = "SELECT unit FROM judge WHERE id = '$adminId'";
+                                    $resultAdmin = mysqli_query($bd, $queryAdmin);
+                                    $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+                                    $adminUnit = $rowAdmin['unit'];
+
+                                    $status = "in process";
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status' AND unit = '$adminUnit'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        
+                                        ?>
+                                            <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints Status in process</p>
+                                </div>
+                                <?php } ?>
+
+                                <?php
+                                if ($adminType == 'president') {
+
+                                    $status = "in process";
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        
+                                        ?>
+                                            <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints Status in process</p>
+                                </div>
+                                <?php } ?>
 
                         <div class="col-md-2 col-sm-2 box0">
                             <div class="box1">
                                 <span class="li_news"></span>
                                 <?php
-                                $adminId = $_SESSION['id'];
-                                $queryAdmin = "SELECT categoryName FROM admincategory WHERE id = '$adminId'";
-                                $resultAdmin = mysqli_query($bd, $queryAdmin);
-                                $rowAdmin = mysqli_fetch_assoc($resultAdmin);
-                                $adminCategory = $rowAdmin['categoryName'];
+                                if ($adminType == 'minister') {
+                                    $adminId = $_SESSION['id'];
+                                    $queryAdmin = "SELECT ministryName FROM minister WHERE id = '$adminId'";
+                                    $resultAdmin = mysqli_query($bd, $queryAdmin);
+                                    $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+                                    $adminCategory = $rowAdmin['ministryName'];
 
-                                $status = "closed";
-                                $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status' AND category = '$adminCategory'");
-                                $num1 = mysqli_num_rows($rt);
-                                {
-                                ?>
-                                    <h3><?php echo htmlentities($num1); ?></h3>
-                            </div>
-                            <p><?php echo htmlentities($num1); ?> Complaints have been closed</p>
-                        </div>
+                                    $status = "closed";
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status' AND ministry = '$adminCategory'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        
+                                        ?>
+                                            <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints have been closed</p>
+                                </div>
+                                <?php } ?>
 
-                        <?php } ?>
+                                <?php
+                                if ($adminType == 'judge') {
+                                    $adminId = $_SESSION['id'];
+                                    $queryAdmin = "SELECT unit FROM judge WHERE id = '$adminId'";
+                                    $resultAdmin = mysqli_query($bd, $queryAdmin);
+                                    $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+                                    $adminUnit = $rowAdmin['unit'];
+
+                                    $status = "closed";
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status' AND unit = '$adminUnit'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        
+                                        ?>
+                                            <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints have been closed</p>
+                                </div>
+                                <?php } ?>
+
+                                <?php
+                                if ($adminType == 'president') {
+
+                                    $status = "closed";
+                                        $rt = mysqli_query($bd, "SELECT * FROM tblcomplaints WHERE  status = '$status'");
+                                        $num1 = mysqli_num_rows($rt);
+                                        
+                                        ?>
+                                            <h3><?php echo htmlentities($num1); ?></h3>
+                                    </div>
+                                    <p><?php echo htmlentities($num1); ?> Complaints have been closed</p>
+                                </div>
+                                <?php } ?>
 
                     </div><!-- /row mt -->
 

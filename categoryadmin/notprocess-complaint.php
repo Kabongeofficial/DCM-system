@@ -8,25 +8,53 @@ if (strlen($_SESSION['login']) == 0) {
     $currentTime = date('d-m-Y h:i:s A', time());
     // Retrieve the admin's ID
     $adminID = $_SESSION['id'];
-
-    // Retrieve the admin's category
-    $query = mysqli_query($bd, "SELECT categoryName FROM admincategory WHERE id = '$adminID'");
-    if (!$query) {
-        // Query execution failed
-        echo "Error: " . mysqli_error($bd);
-        // You can handle the error in a way that suits your application
-    } else {
-        // Query executed successfully, check if there is a row
-        if (mysqli_num_rows($query) > 0) {
-            // Fetch the category from the result
-            $row = mysqli_fetch_assoc($query);
-            $adminCategory = $row['categoryName'];
-        } else {
-            // Admin ID not found in the admincategory table
-            echo "Error: Admin ID not found.";
+    $adminType = $_SESSION['userType'];
+    if ($adminType == 'minister') {
+        // Retrieve the admin's category
+        $query = mysqli_query($bd, "SELECT ministryName FROM minister WHERE id = '$adminID'");
+        if (!$query) {
+            // Query execution failed
+            echo "Error: " . mysqli_error($bd);
             // You can handle the error in a way that suits your application
+        } else {
+            // Query executed successfully, check if there is a row
+            if (mysqli_num_rows($query) > 0) {
+                // Fetch the category from the result
+                $row = mysqli_fetch_assoc($query);
+                $adminCategory = $row['ministryName'];
+            } else {
+                // Admin ID not found in the admincategory table
+                echo "Error: Admin ID not found.";
+                // You can handle the error in a way that suits your application
+            }
         }
     }
+
+    if ($adminType == 'judge') {
+        // Retrieve the admin's category
+        $query = mysqli_query($bd, "SELECT unit FROM judge WHERE id = '$adminID'");
+        if (!$query) {
+            // Query execution failed
+            echo "Error: " . mysqli_error($bd);
+            // You can handle the error in a way that suits your application
+        } else {
+            // Query executed successfully, check if there is a row
+            if (mysqli_num_rows($query) > 0) {
+                // Fetch the category from the result
+                $row = mysqli_fetch_assoc($query);
+                $adminCategory = $row['unit'];
+            } else {
+                // Admin ID not found in the admincategory table
+                echo "Error: Admin ID not found.";
+                // You can handle the error in a way that suits your application
+            }
+        }
+
+    }
+
+    
+
+    
     ?>
     
     <!DOCTYPE html>
@@ -89,7 +117,17 @@ if (strlen($_SESSION['login']) == 0) {
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL AND tblcomplaints.category = '$adminCategory'");
+                                        $query = null;
+                                        if($adminType == 'minister'){
+                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL AND tblcomplaints.ministry = '$adminCategory'");
+                                        }
+                                        if($adminType == 'judge'){
+                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL AND tblcomplaints.unit = '$adminCategory'");
+
+                                        }
+                                        if($adminType == 'president'){
+                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL");
+                                        }
                                          if (!$query) {
                                             // Query execution failed
                                             echo "Error: " . mysqli_error($bd);

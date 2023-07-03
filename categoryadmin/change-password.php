@@ -7,6 +7,8 @@ if(strlen($_SESSION['login']) == 0) {
 } else {
     date_default_timezone_set('Asia/Kolkata');
     $currentTime = date('d-m-Y h:i:s A', time());
+    $adminType = $_SESSION['userType'];
+
 
     if(isset($_POST['submit'])) {
         $oldPassword = $_POST['password'];
@@ -14,17 +16,46 @@ if(strlen($_SESSION['login']) == 0) {
         $confirmPassword = $_POST['confirmpassword'];
 
         $email = $_SESSION['login'];
-        $sql = mysqli_query($bd, "SELECT password FROM admincategory WHERE email='$email'");
-        $row = mysqli_fetch_assoc($sql);
-        $hashedPassword = $row['password'];
+        if ($adminType == 'minister') {
+            $sql = mysqli_query($bd, "SELECT password FROM minister WHERE email='$email'");
+            $row = mysqli_fetch_assoc($sql);
+            $hashedPassword = $row['password'];
 
-        if(password_verify($oldPassword, $hashedPassword)) {
-            $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-            $con = mysqli_query($bd, "UPDATE admincategory SET password='$newHashedPassword', updationDate='$currentTime' WHERE email='$email'");
-            $successmsg = "Password Changed Successfully !!";
-        } else {
-            $errormsg = "Old Password does not match !!";
-        }
+            if(password_verify($oldPassword, $hashedPassword)) {
+                $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $con = mysqli_query($bd, "UPDATE minister SET password='$newHashedPassword', updationDate='$currentTime' WHERE email='$email'");
+                $successmsg = "Password Changed Successfully !!";
+            } else {
+                $errormsg = "Old Password does not match !!";
+            }
+         }
+         if ($adminType == 'judge') {
+            $sql = mysqli_query($bd, "SELECT password FROM judge WHERE email='$email'");
+            $row = mysqli_fetch_assoc($sql);
+            $hashedPassword = $row['password'];
+    
+            if(password_verify($oldPassword, $hashedPassword)) {
+                $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $con = mysqli_query($bd, "UPDATE judge SET password='$newHashedPassword', updationDate='$currentTime' WHERE email='$email'");
+                $successmsg = "Password Changed Successfully !!";
+            } else {
+                $errormsg = "Old Password does not match !!";
+            }
+         }
+         if ($adminType == 'president') {
+            $sql = mysqli_query($bd, "SELECT password FROM president WHERE email='$email'");
+            $row = mysqli_fetch_assoc($sql);
+            $hashedPassword = $row['password'];
+    
+            if(password_verify($oldPassword, $hashedPassword)) {
+                $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $con = mysqli_query($bd, "UPDATE president SET password='$newHashedPassword', updationDate='$currentTime' WHERE email='$email'");
+                $successmsg = "Password Changed Successfully !!";
+            } else {
+                $errormsg = "Old Password does not match !!";
+            }
+         }
+        
     }
 }
 ?>

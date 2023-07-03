@@ -10,12 +10,12 @@ else{
     {
         $category=$_POST['category'];
         $subcat=$_POST['subcategory'];
-        $sql=mysqli_query($bd, "insert into subcategory(categoryid,subcategory) values('$category','$subcat')");
+        $sql=mysqli_query($bd, "insert into category(ministryid,subcategory) values('$category','$subcat')");
         $_SESSION['msg']="SubCategory Created !!";
     }
     if(isset($_GET['del']))
     {
-        mysqli_query($bd, "delete from subcategory where id = '".$_GET['id']."'");
+        mysqli_query($bd, "delete from category where id = '".$_GET['id']."'");
         $_SESSION['delmsg']="SubCategory deleted !!";
     }
 ?>
@@ -62,20 +62,20 @@ else{
                                 <br />
                                 <form class="form-horizontal row-fluid" name="subcategory" method="post">
                                     <div class="control-group">
-                                        <label class="control-label" for="basicinput">Category</label>
+                                        <label class="control-label" for="basicinput">Ministry</label>
                                         <div class="controls">
                                             <select name="category" class="span8 tip" required>
-                                                <option value="">Select Category</option>
-                                                <?php $query=mysqli_query($bd, "select * from category");
+                                                <option value="">Select Ministry</option>
+                                                <?php $query=mysqli_query($bd, "select * from ministry");
                                                 while($row=mysqli_fetch_array($query))
                                                 {?>
-                                                <option value="<?php echo $row['id'];?>"><?php echo $row['categoryName'];?></option>
+                                                <option value="<?php echo $row['id'];?>"><?php echo $row['ministryName'];?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label" for="basicinput">SubCategory Name</label>
+                                        <label class="control-label" for="basicinput">Category Name</label>
                                         <div class="controls">
                                             <input type="text" placeholder="Enter SubCategory Name" name="subcategory" class="span8 tip" required>
                                         </div>
@@ -90,28 +90,28 @@ else{
                         </div>
                         <div class="module">
                             <div class="module-head">
-                                <h3>Sub Category</h3>
+                                <h3>Category</h3>
                             </div>
                             <div class="module-body table">
                                 <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="100%">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Category</th>
-                                            <th>Description</th>
+                                            <th>Ministry</th>
+                                            <th>category</th>
                                             <th>Creation date</th>
                                             <th>Last Updated</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $query=mysqli_query($bd, "select subcategory.id,category.categoryName,subcategory.subcategory,subcategory.creationDate,subcategory.updationDate from subcategory join category on category.id=subcategory.categoryid");
+                                        <?php $query=mysqli_query($bd, "SELECT category.id, ministry.ministryName, category.subcategory, category.creationDate, category.updationDate FROM category join ministry on ministry.id=category.ministryid");
                                         $cnt=1;
                                         while($row=mysqli_fetch_array($query))
                                         {?>
                                         <tr>
                                             <td><?php echo htmlentities($cnt);?></td>
-                                            <td><?php echo htmlentities($row['categoryName']);?></td>
+                                            <td><?php echo htmlentities($row['ministryName']);?></td>
                                             <td><?php echo htmlentities($row['subcategory']);?></td>
                                             <td><?php echo htmlentities($row['creationDate']);?></td>
                                             <td><?php echo htmlentities($row['updationDate']);?></td>

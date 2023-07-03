@@ -16,8 +16,8 @@ if(isset($_POST['submit']))
 	$category=$_POST['category'];
 	$subcat=$_POST['subcategory'];
 	$id=intval($_GET['id']);
-$sql=mysqli_query($bd, "update subcategory set categoryid='$category',subcategory='$subcat',updationDate='$currentTime' where id='$id'");
-$_SESSION['msg']="Category Updated !!";
+$sql=mysqli_query($bd, "update category set ministryid='$category', subcategory='$subcat', updationDate='$currentTime' where id='$id'");
+$_SESSION['msg']="Ministry Updated !!";
 
 }
 
@@ -27,7 +27,7 @@ $_SESSION['msg']="Category Updated !!";
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin| Edit SubCategory</title>
+	<title>Admin| Edit Category</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -46,7 +46,7 @@ $_SESSION['msg']="Category Updated !!";
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Edit SubCategory</h3>
+								<h3>Edit Category</h3>
 							</div>
 							<div class="module-body">
 
@@ -64,27 +64,27 @@ $_SESSION['msg']="Category Updated !!";
 			<form class="form-horizontal row-fluid" name="Category" method="post" >
 <?php
 $id=intval($_GET['id']);
-$query=mysqli_query($bd, "select category.id,category.categoryName,subcategory.subcategory from subcategory join category on category.id=subcategory.categoryid where subcategory.id='$id'");
+$query=mysqli_query($bd, "select ministry.id, ministry.ministryName, category.subcategory from category join ministry on ministry.id=category.ministryid where category.id='$id'");
 while($row=mysqli_fetch_array($query))
 {
 ?>		
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Category</label>
+<label class="control-label" for="basicinput">Ministry</label>
 <div class="controls">
 <select name="category" class="span8 tip" required>
-<option value="<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($catname=$row['categoryName']);?></option>
-<?php $ret=mysqli_query($bd, "select * from category");
+<option value="<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($catname=$row['ministryName']);?></option>
+<?php $ret=mysqli_query($bd, "select * from ministry");
 while($result=mysqli_fetch_array($ret))
 {
-	$cat=$result['categoryName'];
+	$cat=$result['ministryName'];
 if($catname=$cat)
 {
 	continue;
 }
 else{
 ?>
-<option value="<?php echo $result['id'];?>"><?php echo $result['categoryName'];?></option>
+<option value="<?php echo $result['id'];?>"><?php echo $result['ministryName'];?></option>
 <?php } }?>
 </select>
 </div>

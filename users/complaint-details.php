@@ -35,7 +35,7 @@ else{ ?>
           	<h3><i class="fa fa-angle-right"></i> Complaint Details</h3>
             <hr />
 
- <?php $query=mysqli_query($bd, "select tblcomplaints.*,category.categoryName as catname from tblcomplaints join category on category.id=tblcomplaints.category where userId='".$_SESSION['id']."' and complaintNumber='".$_GET['cid']."'");
+ <?php $query=mysqli_query($bd, "select tblcomplaints.*,minister.ministryName as catname from tblcomplaints join minister on minister.id=tblcomplaints.ministry where userId='".$_SESSION['id']."' and complaintNumber='".$_GET['cid']."'");
 while($row=mysqli_fetch_array($query))
 {?>
           	<div class="row mt">
@@ -57,7 +57,7 @@ while($row=mysqli_fetch_array($query))
               </div>
 <label class="col-sm-2 col-sm-2 control-label"><b>Sub Category :</b> </label>
               <div class="col-sm-4">
-              <p><?php echo htmlentities($row['subcategory']);?></p>
+              <p><?php echo htmlentities($row['category']);?></p>
               </div>
             </div>
 
@@ -68,19 +68,12 @@ while($row=mysqli_fetch_array($query))
               <div class="col-sm-4">
               <p><?php echo htmlentities($row['complaintType']);?></p>
               </div>
-<label class="col-sm-2 col-sm-2 control-label"><b>State :</b></label>
-              <div class="col-sm-4">
-              <p><?php echo htmlentities($row['state']);?></p>
-              </div>
             </div>  
 
 
 
   <div class="row mt">
-            <label class="col-sm-2 col-sm-2 control-label"><b>Nature of Complaint :</b></label>
-              <div class="col-sm-4">
-              <p><?php echo htmlentities($row['noc']);?></p>
-              </div>
+           
 <label class="col-sm-2 col-sm-2 control-label"><b>File :</b></label>
               <div class="col-sm-4">
               <p><?php $cfile=$row['complaintFile'];

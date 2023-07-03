@@ -13,17 +13,17 @@ $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_POST['submit']))
 {
-	$category=$_POST['category'];
+	$ministry=$_POST['ministry'];
 	$description=$_POST['description'];
-$sql=mysqli_query($bd, "insert into category(categoryName,categoryDescription) values('$category','$description')");
-$_SESSION['msg']="Category Created !!";
+$sql=mysqli_query($bd, " INSERT INTO ministry (ministryName, ministrDescription) VALUES ('$ministry','$description')");
+$_SESSION['msg']="Ministry Created !!";
 
 }
 
 if(isset($_GET['del']))
 		  {
-		          mysqli_query($bd, "delete from category where id = '".$_GET['id']."'");
-                  $_SESSION['delmsg']="Category deleted !!";
+		          mysqli_query($bd, "DELETE FROM ministry WHERE id = '".$_GET['id']."'");
+                  $_SESSION['delmsg']="Ministry deleted !!";
 		  }
 
 ?>
@@ -32,7 +32,7 @@ if(isset($_GET['del']))
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin| Category</title>
+	<title>Admin| Ministry</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -51,7 +51,7 @@ if(isset($_GET['del']))
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Category</h3>
+								<h3>Ministry</h3>
 							</div>
 							<div class="module-body">
 
@@ -77,9 +77,9 @@ if(isset($_GET['del']))
 			<form class="form-horizontal row-fluid" name="Category" method="post" >
 									
 <div class="control-group">
-<label class="control-label" for="basicinput">Category Name</label>
+<label class="control-label" for="basicinput">Ministry Name</label>
 <div class="controls">
-<input type="text" placeholder="Enter category Name"  name="category" class="span8 tip" required>
+<input type="text" placeholder="Enter category Name"  name="ministry" class="span8 tip" required>
 </div>
 </div>
 
@@ -110,7 +110,7 @@ if(isset($_GET['del']))
 									<thead>
 										<tr>
 											<th>#</th>
-											<th>Category</th>
+											<th>Ministry</th>
 											<th>Description</th>
 											<th>Creation date</th>
 											<th>Last Updated</th>
@@ -119,15 +119,15 @@ if(isset($_GET['del']))
 									</thead>
 									<tbody>
 
-<?php $query=mysqli_query($bd, "select * from category");
+<?php $query=mysqli_query($bd, "SELECT * FROM ministry");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
 ?>									
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($row['categoryName']);?></td>
-											<td><?php echo htmlentities($row['categoryDescription']);?></td>
+											<td><?php echo htmlentities($row['ministryName']);?></td>
+											<td><?php echo htmlentities($row['ministrDescription']);?></td>
 											<td> <?php echo htmlentities($row['creationDate']);?></td>
 											<td><?php echo htmlentities($row['updationDate']);?></td>
 											<td>

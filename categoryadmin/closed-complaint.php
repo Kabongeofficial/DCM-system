@@ -6,6 +6,8 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     date_default_timezone_set('Asia/Kolkata'); // change according timezone
     $currentTime = date('d-m-Y h:i:s A', time());
+    $adminType = $_SESSION['userType'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,12 +74,29 @@ if (strlen($_SESSION['login']) == 0) {
                                         $st = 'closed';
                                         $adminID = $_SESSION['id']; // Assuming you have the admin ID stored in the session
 
-                                        $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name
+                                        $query= null;
+                                        if($adminType == 'minister'){
+                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name
                                             FROM tblcomplaints
                                             JOIN users ON users.id = tblcomplaints.userId
-                                            JOIN admincategory ON admincategory.categoryName = tblcomplaints.category
+                                            JOIN minister ON minister.ministryName = tblcomplaints.ministry
                                             WHERE tblcomplaints.status = '$st'
-                                            AND admincategory.id = $adminID");
+                                            AND minister.id = $adminID");
+                                        }
+                                        if($adminType == 'judge'){
+                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name
+                                            FROM tblcomplaints
+                                            JOIN users ON users.id = tblcomplaints.userId
+                                            JOIN judge ON judge.unit = tblcomplaints.unit
+                                            WHERE tblcomplaints.status = '$st'
+                                            AND judge.id = $adminID");
+                                        }
+                                        if($adminType == 'president'){
+                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name
+                                            FROM tblcomplaints
+                                            JOIN users ON users.id = tblcomplaints.userId
+                                            WHERE tblcomplaints.status = '$st'");
+                                        }
 
                                         while ($row = mysqli_fetch_array($query)) {
                                         ?>

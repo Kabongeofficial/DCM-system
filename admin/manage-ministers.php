@@ -46,7 +46,7 @@ else{
                         <div class="content">
                             <div class="module">
                                 <div class="module-head">
-                                    <h3>Manage Users</h3>
+                                    <h3>Manage Minister</h3>
                                 </div>
                                 <div class="module-body table">
                                     <?php if(isset($_GET['del']) && $_GET['del'] == 'success') {?>
@@ -70,28 +70,28 @@ else{
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Contact no</th>
-                                                <th>Reg. Date</th>
+                                                <th>Ministry</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php 
-                                            $query = mysqli_query($bd, "SELECT * FROM users");
+                                            $query = mysqli_query($bd, "SELECT * FROM minister");
                                             $cnt=1;
                                             while($row = mysqli_fetch_array($query))
                                             {
                                                 ?>									
                                                 <tr>
                                                     <td><?php echo htmlentities($cnt);?></td>
-                                                    <td><?php echo htmlentities($row['fullName']);?></td>
-                                                    <td><?php echo htmlentities($row['userEmail']);?></td>
-                                                    <td><?php echo htmlentities($row['contactNo']);?></td>
-                                                    <td><?php echo htmlentities($row['regDate']);?></td>
+                                                    <td><?php echo htmlentities($row['username']);?></td>
+                                                    <td><?php echo htmlentities($row['email']);?></td>
+                                                    <td><?php echo htmlentities($row['contactno']);?></td>
+                                                    <td><?php echo htmlentities($row['ministryName']);?></td>
                                                     <td>
                                                         <a href="javascript:void(0);" onClick="popUpWindow('http://localhost/Complaint Management System/admin/userprofile.php?uid=<?php echo htmlentities($row['id']);?>');" title="Update order">
                                                             <button type="button" class="btn btn-primary">View Details</button>
                                                         </a>
-                                                        <a href="delete-user.php?id=<?php echo htmlentities($row['id']);?>&type=user" title="Delete user">
+                                                        <a href="delete-user.php?id=<?php echo htmlentities($row['id']);?>&type=minister" title="Delete user">
                                                             <button type="button" class="btn btn-danger">Delete</button>
                                                         </a>
                                                     </td>

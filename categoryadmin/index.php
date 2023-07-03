@@ -7,20 +7,24 @@ if(isset($_POST['submit'])) {
     $email = $_POST['username'];
     $password = $_POST['password'];
     
-    $query = mysqli_query($bd, "SELECT * FROM admincategory WHERE email='$email'");
-    $num = mysqli_fetch_array($query);
+    $query = mysqli_query($bd, "SELECT * FROM minister WHERE email='$email'");
+    $minister = mysqli_fetch_array($query);
     
-    if($num > 0 && password_verify($password, $num['password'])) {
-        $extra = "dashboard.php";
-        $_SESSION['login'] = $email;
-        $_SESSION['id'] = $num['id'];
-        $host = $_SERVER['HTTP_HOST'];
-        $uip = $_SERVER['REMOTE_ADDR'];
-        $status = 1;
-        // $log = mysqli_query($bd, "INSERT INTO userlog(uid,username,userip,status) VALUES ('".$_SESSION['id']."','".$_SESSION['login']."','$uip','$status')");
-        $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-        header("location:http://$host$uri/$extra");
-        exit();
+    $query = mysqli_query($bd, "SELECT * FROM judge WHERE email='$email'");
+    $judge = mysqli_fetch_array($query);
+    
+    $query = mysqli_query($bd, "SELECT * FROM president WHERE email='$email'");
+    $president = mysqli_fetch_array($query);
+    
+    if(password_verify($password, $minister['password'])) {
+        $userType = 'minister';
+        $userInfo = $minister;
+    } elseif(password_verify($password, $judge['password'])) {
+        $userType = 'judge';
+        $userInfo = $judge;
+    } elseif(password_verify($password, $president['password'])) {
+        $userType = 'president';
+        $userInfo = $president;
     } else {
         $_SESSION['login'] = $email;
         $uip = $_SERVER['REMOTE_ADDR'];
@@ -29,6 +33,20 @@ if(isset($_POST['submit'])) {
         $errormsg = "Invalid username or password";
         $extra = "login.php";
     }
+    
+    if (isset($userType)) {
+        $extra = "dashboard.php";
+        $_SESSION['login'] = $email;
+        $_SESSION['id'] = $userInfo['id'];
+        $_SESSION['userType'] = $userType;
+        $host = $_SERVER['HTTP_HOST'];
+        $uip = $_SERVER['REMOTE_ADDR'];
+        $status = 1;
+        // $log = mysqli_query($bd, "INSERT INTO userlog(uid,username,userip,status) VALUES ('".$_SESSION['id']."','".$_SESSION['login']."','$uip','$status')");
+        $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        header("location:http://$host$uri/$extra");
+        exit();
+    }
 }
 
 if(isset($_POST['change'])) {
@@ -36,16 +54,28 @@ if(isset($_POST['change'])) {
     $contact = $_POST['contact'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     
-    $query = mysqli_query($bd, "SELECT * FROM admincategory WHERE email='$email' AND contactno='$contact'");
-    $num = mysqli_fetch_array($query);
+    $queryMinister = mysqli_query($bd, "SELECT * FROM minister WHERE email='$email' AND contactno='$contact'");
+    $queryJudge = mysqli_query($bd, "SELECT * FROM judge WHERE email='$email' AND contactno='$contact'");
+    $queryPresident = mysqli_query($bd, "SELECT * FROM president WHERE email='$email' AND contactno='$contact'");
     
-    if($num > 0) {
-        mysqli_query($bd, "UPDATE admincategory SET password='$password' WHERE email='$email' AND contactno='$contact'");
-        $msg = "Password Changed Successfully";
+    $numMinister = mysqli_num_rows($queryMinister);
+    $numJudge = mysqli_num_rows($queryJudge);
+    $numPresident = mysqli_num_rows($queryPresident);
+    
+    if($numMinister > 0) {
+        mysqli_query($bd, "UPDATE minister SET password='$password' WHERE email='$email' AND contactno='$contact'");
+        $msg = "Minister Password Changed Successfully";
+    } elseif($numJudge > 0) {
+        mysqli_query($bd, "UPDATE judge SET password='$password' WHERE email='$email' AND contactno='$contact'");
+        $msg = "Judge Password Changed Successfully";
+    } elseif($numPresident > 0) {
+        mysqli_query($bd, "UPDATE president SET password='$password' WHERE email='$email' AND contactno='$contact'");
+        $msg = "President Password Changed Successfully";
     } else {
         $errormsg = "Invalid email id or contact no";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +115,7 @@ if(isset($_POST['change'])) {
     <div id="login-page">
         <div class="container">
             <form class="form-login" name="login" method="post">
-                <h2 class="form-login-heading"> Admin Sign in now</h2>
+                <h2 class="form-login-heading"> Leader Sign in now</h2>
                 <p style="padding-left:4%; padding-top:2%;  color:red">
                     <?php if($errormsg) { echo htmlentities($errormsg); } ?>
                 </p>

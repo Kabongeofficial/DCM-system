@@ -13,10 +13,10 @@ $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_POST['submit']))
 {
-	$category=$_POST['category'];
+	$ministry=$_POST['ministry'];
 	$description=$_POST['description'];
 	$id=intval($_GET['id']);
-$sql=mysqli_query($bd, "update category set categoryName='$category',categoryDescription='$description',updationDate='$currentTime' where id='$id'");
+$sql=mysqli_query($bd, "update ministry set ministryName='$ministry',ministrDescription='$description',updationDate='$currentTime' where id='$id'");
 $_SESSION['msg']="Category Updated !!";
 
 }
@@ -46,7 +46,7 @@ $_SESSION['msg']="Category Updated !!";
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Category</h3>
+								<h3>Ministry</h3>
 							</div>
 							<div class="module-body">
 
@@ -64,14 +64,14 @@ $_SESSION['msg']="Category Updated !!";
 			<form class="form-horizontal row-fluid" name="Category" method="post" >
 <?php
 $id=intval($_GET['id']);
-$query=mysqli_query($bd, "select * from category where id='$id'");
+$query=mysqli_query($bd, "select * from ministry where id='$id'");
 while($row=mysqli_fetch_array($query))
 {
 ?>									
 <div class="control-group">
-<label class="control-label" for="basicinput">Category Name</label>
+<label class="control-label" for="basicinput">Ministry Name</label>
 <div class="controls">
-<input type="text" placeholder="Enter category Name"  name="category" value="<?php echo  htmlentities($row['categoryName']);?>" class="span8 tip" required>
+<input type="text" placeholder="Enter category Name"  name="ministry" value="<?php echo  htmlentities($row['ministryName']);?>" class="span8 tip" required>
 </div>
 </div>
 
@@ -79,7 +79,7 @@ while($row=mysqli_fetch_array($query))
 <div class="control-group">
 											<label class="control-label" for="basicinput">Description</label>
 											<div class="controls">
-												<textarea class="span8" name="description" rows="5"><?php echo  htmlentities($row['categoryDescription']);?></textarea>
+												<textarea class="span8" name="description" rows="5"><?php echo  htmlentities($row['ministrDescription']);?></textarea>
 											</div>
 										</div>
 									<?php } ?>	
