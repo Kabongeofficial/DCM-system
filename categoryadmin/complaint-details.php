@@ -161,13 +161,17 @@ while($rw=mysqli_fetch_array($ret))
 <tr>
 											<td><b>Action</b></td>
 											
-											<td> 
-											<?php if($row['status']=="closed"){
-
-												} else {?>
-<a href="javascript:void(0);" onClick="popUpWindow('http://localhost/Complaint Management System/categoryadmin/updatecomplaints.php?cid=<?php echo htmlentities($row['complaintNumber']);?>');" title="Update order">
-											 <button type="button" class="btn btn-primary">Take Action</button></td>
-											</a><?php } ?></td>
+											<?php
+												if ($adminType !== 'president' && $adminType !== 'judge') {
+												?>
+												<td> 
+													<?php if ($row['status'] != "closed") { ?>
+													<a href="javascript:void(0);" onClick="popUpWindow('http://localhost/Complaint Management System/categoryadmin/updatecomplaints.php?cid=<?php echo htmlentities($row['complaintNumber']);?>');" title="Update order">
+														<button type="button" class="btn btn-primary">Take Action</button>
+													</a>
+													<?php } ?>
+												</td>
+												<?php } ?>
 											<td colspan="4"> 
 											<a href="javascript:void(0);" onClick="popUpWindow('http://localhost/Complaint Management System/categoryadmin/userprofile.php?uid=<?php echo htmlentities($row['userId']);?>');" title="Update order">
 											 <button type="button" class="btn btn-primary">View User Detials</button></a></td>

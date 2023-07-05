@@ -88,9 +88,6 @@ else{
                                                     <td><?php echo htmlentities($row['contactno']);?></td>
                                                     <td><?php echo htmlentities($row['ministryName']);?></td>
                                                     <td>
-                                                        <a href="javascript:void(0);" onClick="popUpWindow('http://localhost/Complaint Management System/admin/userprofile.php?uid=<?php echo htmlentities($row['id']);?>');" title="Update order">
-                                                            <button type="button" class="btn btn-primary">View Details</button>
-                                                        </a>
                                                         <a href="delete-user.php?id=<?php echo htmlentities($row['id']);?>&type=minister" title="Delete user">
                                                             <button type="button" class="btn btn-danger">Delete</button>
                                                         </a>

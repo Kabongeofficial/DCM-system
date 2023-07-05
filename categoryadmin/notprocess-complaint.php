@@ -117,33 +117,33 @@ if (strlen($_SESSION['login']) == 0) {
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $query = null;
+                                        $querys = null;
                                         if($adminType == 'minister'){
-                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL AND tblcomplaints.ministry = '$adminCategory'");
+                                            $querys = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL AND tblcomplaints.ministry = '$adminCategory'");
                                         }
                                         if($adminType == 'judge'){
-                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL AND tblcomplaints.unit = '$adminCategory'");
+                                            $querys = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL AND tblcomplaints.unit = '$adminCategory'");
 
                                         }
                                         if($adminType == 'president'){
-                                            $query = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL");
+                                            $querys = mysqli_query($bd, "SELECT tblcomplaints.*, users.fullName AS name FROM tblcomplaints JOIN users ON users.id = tblcomplaints.userId WHERE tblcomplaints.status IS NULL");
                                         }
-                                         if (!$query) {
+                                         if (!$querys) {
                                             // Query execution failed
                                             echo "Error: " . mysqli_error($bd);
                                             // You can handle the error in a way that suits your application
                                         } else {
                                             // Query executed successfully, check if there are any rows
-                                            if (mysqli_num_rows($query) > 0) {
+                                            if (mysqli_num_rows($querys) > 0) {
                                                 // Fetch and display the data
-                                                while ($row = mysqli_fetch_assoc($query)) {
+                                                while ($rows = mysqli_fetch_assoc($querys)) {
                                                     ?>
                                                     <tr>
-                                                        <td><?php echo htmlentities($row['complaintNumber']);?></td>
-                                                        <td><?php echo htmlentities($row['name']);?></td>
-                                                        <td><?php echo htmlentities($row['regDate']);?></td>
+                                                        <td><?php echo htmlentities($rows['complaintNumber']);?></td>
+                                                        <td><?php echo htmlentities($rows['name']);?></td>
+                                                        <td><?php echo htmlentities($rows['regDate']);?></td>
                                                         <td><button type="button" class="btn btn-danger">Not processed yet</button></td>
-                                                        <td><a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']);?>">View Details</a></td>
+                                                        <td><a href="complaint-details.php?cid=<?php echo htmlentities($rows['complaintNumber']);?>">View Details</a></td>
                                                     </tr>
                                                     <?php
                                                 }

@@ -35,7 +35,7 @@ else{ ?>
           	<h3><i class="fa fa-angle-right"></i> Complaint Details</h3>
             <hr />
 
- <?php $query=mysqli_query($bd, "select tblcomplaints.*,minister.ministryName as catname from tblcomplaints join minister on minister.id=tblcomplaints.ministry where userId='".$_SESSION['id']."' and complaintNumber='".$_GET['cid']."'");
+ <?php $query=mysqli_query($bd, "SELECT tblcomplaints.*, ministry.ministryName AS catname FROM tblcomplaints JOIN ministry ON ministry.id=tblcomplaints.ministry WHERE userId='".$_SESSION['id']."' and complaintNumber='".$_GET['cid']."'");
 while($row=mysqli_fetch_array($query))
 {?>
           	<div class="row mt">

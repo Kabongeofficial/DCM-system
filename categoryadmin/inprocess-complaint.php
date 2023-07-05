@@ -102,7 +102,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <td><?php echo htmlentities($row['complaintNumber']); ?></td>
                                                 <td><?php echo htmlentities($row['name']); ?></td>
                                                 <td><?php echo htmlentities($row['regDate']); ?></td>
-                                                <td><button type="button" class="btn btn-success">Closed</button></td>
+                                                <td><button type="button" class="btn btn-warning">in process</button></td>
                                                 <td>   <a href="complaint-details.php?cid=<?php echo htmlentities($row['complaintNumber']);?>"> View Details</a> 
                                                 </td>
                                             </tr>
