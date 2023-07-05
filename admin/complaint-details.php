@@ -58,7 +58,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 									<tbody>
 
 <?php $st='closed';
-$query=mysqli_query($bd, "select tblcomplaints.*,users.fullName as name,category.categoryName as catname from tblcomplaints join users on users.id=tblcomplaints.userId join category on category.id=tblcomplaints.category where tblcomplaints.complaintNumber='".$_GET['cid']."'");
+$query=mysqli_query($bd, "select tblcomplaints.*,users.fullName as name,ministry.ministryName as catname from tblcomplaints join users on users.id=tblcomplaints.userId join ministry on ministry.id=tblcomplaints.ministry where tblcomplaints.complaintNumber='".$_GET['cid']."'");
 while($row=mysqli_fetch_array($query))
 {
 
@@ -77,18 +77,12 @@ while($row=mysqli_fetch_array($query))
 											<td><b>Category </b></td>
 											<td><?php echo htmlentities($row['catname']);?></td>
 											<td><b>SubCategory</b></td>
-											<td> <?php echo htmlentities($row['subcategory']);?></td>
+											<td> <?php echo htmlentities($row['category']);?></td>
 											<td><b>Complaint Type</b></td>
 											<td><?php echo htmlentities($row['complaintType']);?>
 											</td>
 										</tr>
-<tr>
-											<td><b>State </b></td>
-											<td><?php echo htmlentities($row['state']);?></td>
-											<td ><b>Nature of Complaint</b></td>
-											<td colspan="3"> <?php echo htmlentities($row['noc']);?></td>
-											
-										</tr>
+
 <tr>
 											<td><b>Complaint Details </b></td>
 											
